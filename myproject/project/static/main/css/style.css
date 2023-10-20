@@ -1,0 +1,24 @@
+body {
+   padding-top: 5rem;
+}
+
+.starter-template {
+    padding: 2rem 1.5rem;
+}
+/*root {*/
+/*    --bg-color:white;*/
+/*    --bg-color: black;*/
+
+/*}*/
+
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root{*/
+/*        --bg-color: black;*/
+/*        --text-color: red;*/
+/*    }*/
+/*}*/
+
+/*body {*/
+/*    background-color: var(--bg-color);*/
+/*    color: var(--text-color);*/
+/*}*/

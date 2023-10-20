@@ -1,0 +1,16 @@
+{% extends "basic.html" %}
+
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <h4 class="h5 mr-lg-4 p-3 text-center " style="border: solid 1px red; border-radius: 1em ">Всего заявок в работе: <span class="text-info">{{ counter }}</span></h4>
+    <h5 class="p-3 mb-2 border text-center" style="margin-top: 50px;color:black; ">Выполненные заявки</h5>
+    {% for elem in done %}
+        <div class="row p-3  border-bottom border-top" style="background-color:grey;">
+            <img class="col-4" src="{{ elem.photo.url }}" alt="Фото заявки">
+            <p class="p-3 mb-2" style="color: white;"><b style="">Наименование:</b> {{ elem.name }} <br> <b style="">Категория:</b> {{ elem.Category }} <br> <b style="">Дата
+                добавления:</b> {{ elem.date }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
