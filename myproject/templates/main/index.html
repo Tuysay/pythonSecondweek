@@ -4,12 +4,12 @@
 {% load bootstrap4 %}
 
 {% block content %}
-    <h4 class="h5 mr-lg-6 p-3 text-center " style="border: solid 1px red; border-radius: 1em ">Всего заявок в работе: <span class="text-info">{{ counter }}</span></h4>
+    <h4 class="h5 mr-lg-6 p-3 text-center " style="border: solid 1px red; border-radius: 1em; margin-top: 80px">Всего заявок в работе: <span class="text-info">{{ counter }}</span></h4>
     <h5 class="p-3 mb-2  text-center" style="margin-top: 50px;color:black; border: solid 1px red;">Выполненные заявки</h5>
     {% for elem in done %}
-        <div class="row p-3  border-bottom border-top" style="background-color:grey;">
+        <div class="h5 mr-lg-6 p-3 text-center " style="border: solid 1px red; border-radius: 1em; margin-top: 80px">
             <img class="col-4" src="{{ elem.photo.url }}" alt="Фото заявки">
-            <p class="p-3 mb-2" style="color: white;"><b style="">Наименование:</b> {{ elem.name }} <br> <b style="">Категория:</b> {{ elem.Category }} <br> <b style="">Дата
+            <p class="p-3 mb-2" style="color: black;"><b style="">Наименование:</b> {{ elem.name }} <br> <b style="">Категория:</b> {{ elem.Category }} <br> <b style="">Дата
                 добавления:</b> {{ elem.date }}</p>
         </div>
     {% endfor %}
