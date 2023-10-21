@@ -51,8 +51,8 @@ class Aplication(models.Model):
     date = models.DateTimeField(verbose_name='Дата заявки', auto_now_add=True)
     status_choices = [
         ('new', 'Новая'),
-        ('done', 'Выполнено'),
-        ('received', 'Принято в работу')
+        ('received', 'В обработке'),
+        ('done', 'Выполнено')
     ]
     status = models.CharField(max_length=250, verbose_name='Статус', choices=status_choices, default='new')
     comment = models.CharField(max_length=250, verbose_name='Комментарий', blank=True)
