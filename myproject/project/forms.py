@@ -1,7 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from django.forms import HiddenInput, inlineformset_factory
 
 from project.models import User, Aplication
 

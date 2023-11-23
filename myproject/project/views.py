@@ -42,12 +42,16 @@ def profile(request):
     return render(request, 'main/profile.html')
 
 
+
+
 @login_required
 def delete(request, id):
     apl = Aplication.objects.filter(id=id).get()
     if apl:
         apl.delete()
-    return render(request, 'main/profile.html')
+    return redirect('profile')
+    # return render(request, 'main/profile.html')
+
 
 
 # регистрация, вход, главная страница, профиль, заявка, создание заявки
