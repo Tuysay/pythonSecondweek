@@ -1,16 +1,17 @@
+from urllib import request
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.shortcuts import render
+from django.urls import reverse
 from django.utils.crypto import get_random_string
-from PIL import Image
-
-
 
 
 class User(AbstractUser):
     fname = models.CharField(max_length=150, verbose_name='Имя', null=False, blank=False)
-    lname = models.CharField(max_length=150, verbose_name='Фамилия', null=True, blank=True)
+    lname = models.CharField(max_length=150, verbose_name='Фамилия', null=True, blank=False)
     sname = models.CharField(max_length=150, verbose_name='Отчество', null=False, blank=False)
     username = models.CharField(max_length=150, verbose_name='Никнейм', unique=True, null=False, blank=False)
     email = models.CharField(max_length=250, verbose_name='Почта', unique=False, null=False, blank=False)
@@ -18,12 +19,6 @@ class User(AbstractUser):
     personal_data = models.BooleanField(default=False, blank=False, null=False,
                                         verbose_name='Согласие на обработку персональных данных')
 
-
-    def full_name(self):
-        return str(self.lname) + ' ' + str(self.fname) + ' ' + str(self.sname)
-
-    def __str__(self):
-        return self.full_name()
 
 
 def get_name_file(instance, filename):
@@ -37,10 +32,11 @@ def validate_image_size(img):
         raise ValidationError("Максимальный размер %sMB" % str(megabyte_max))
 
 
+
 class Aplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', null=True)
-    name = models.CharField(max_length=250, verbose_name='Название', null=False, blank=True)
-    description = models.CharField(max_length=250, verbose_name='Описание', null=False, blank=False)
+    name = models.CharField(max_length=250, verbose_name='Имя', null=False, blank=True)
+    description = models.CharField(max_length=250, verbose_name='Описание', null=False, blank=True)
     Category = models.ForeignKey('project.Category', verbose_name='Категория', blank=False, null=False,
                                  on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=get_name_file, blank=False,
@@ -59,21 +55,34 @@ class Aplication(models.Model):
                                          FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg', 'bmp']),
                                          validate_image_size], null=True)
 
-
     def status_verbose(self):
         return dict(self.status_choices)[self.status]
+
 
 
     def __str__(self):
         return str(self.name) + ' | ' + str(self.Category) + ' | ' + str(self.status_verbose())
 
-def get_absolute_url(self):
-    return f'main/profile.html/{self.id}'
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'new': self.str})
+        # f'main/profile.html/{self.id}'
+
+ # render(request, 'main/profile.html')
+
+
+    class Meta:
+        verbose_name = "Приложение"
+        verbose_name_plural = "Приложение"
 
 class Category(models.Model):
-    name = models.CharField(max_length=250, verbose_name='Название',
+    name = models.CharField(max_length=250,
                             null=False,
                             blank=False)
+
+
+    class Meta:
+        verbose_name = "Категории"
+        verbose_name_plural = "Категории"
 
     def __str__(self):
         return self.name

@@ -57,6 +57,7 @@ class RegisterUserForm(forms.ModelForm):
         fields = ('username', 'email', 'password', 'password2', 'fname', 'lname', 'sname', 'personal_data')
 
 
+
 class CreateAplForm(forms.ModelForm):
     photo = forms.ImageField(label='Фото', )
 

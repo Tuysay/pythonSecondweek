@@ -8,8 +8,10 @@ from project.models import Aplication, User, Category
 class AplicationAdmin(admin.ModelAdmin):
     form = AplicationForm
     list_filter = ('status',)
-    list_display = ('status', 'name', 'date', 'Category',)
+    list_display = ('status', 'name', 'date', 'Category')
+    list_display_links = ('name',)
     fields = ('status', 'second_photo', 'comment')
+    ordering = ('date', 'status')
 
 
 

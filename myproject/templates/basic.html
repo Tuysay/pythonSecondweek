@@ -35,7 +35,15 @@
                 </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a href="{% url 'createapl' %}" class="nav-link text-danger" style ="margin-left:10px;">Создать заявку</a>
+                        <a href="{% url 'create' %}" class="nav-link text-danger" style ="margin-left:10px;">Создать заявку</a>
+                    </li>
+                {% endif %}
+                 {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a href="{% url 'apl_admin_render' %}" class="nav-link text-danger" style ="margin-left:10px;">Принятие заявок</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'apl_admin_done' %}" class="nav-link text-danger" style ="margin-left:10px;">Выпольнить заявки</a>
                     </li>
                 {% endif %}
             </ul>
@@ -54,7 +62,7 @@
                         <a class="nav-link text-danger" href="{% url 'register' %}" style ="margin-left:20px;">Регистрация</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="{% url 'login' %}" style ="margin-left:15px; margin-right: 20px">Авторизоваться</a>
+                        <a class="nav-link text-danger" href="{% url 'login' %}" style ="margin-left:15px; margin-right: 20px">Войти</a>
                     </li>
                 </ul>
             {% endif %}

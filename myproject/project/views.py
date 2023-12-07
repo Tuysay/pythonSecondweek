@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from .models import Aplication, Category
-from project.forms import RegisterUserForm, CreateAplForm
+from .forms import RegisterUserForm, CreateAplForm
 
 
 def index(request):
@@ -21,6 +21,10 @@ class RegisterView(CreateView):
     template_name = 'registration/register.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('login')
+
+# def register(request):
+#     from = RegisterUserForm()
+#     return render(request, 'registration/register.html', {'form': form})
 
 
 @login_required
@@ -42,6 +46,23 @@ def profile(request):
     return render(request, 'main/profile.html')
 
 
+@login_required
+def processingapl(request, id):
+    apl = Aplication.objects.filter(id=id).get()
+    if apl:
+        apl.status = "received"
+        apl.save()
+    return redirect('apl_admin_render')
+
+@login_required
+def doneapl(request, id):
+    apl = Aplication.objects.filter(id=id).get()
+    if apl:
+        apl.status = "done"
+        apl.save()
+    return redirect('apl_admin_done')
+
+
 
 
 @login_required
@@ -50,16 +71,24 @@ def delete(request, id):
     if apl:
         apl.delete()
     return redirect('profile')
-    # return render(request, 'main/profile.html')
 
 
-
-# регистрация, вход, главная страница, профиль, заявка, создание заявки
 
 @login_required
 def aplication_render(request):
     apl_items = request.user.aplication_set.all().order_by('-date')
     return render(request, 'main/profile.html', context={'apl_items': apl_items})
+
+@login_required
+def apl_admin_render(request):
+    all = Aplication.objects.filter(status='new').all()
+    return render(request, 'main/adapl.html', context={'all': all})
+
+
+@login_required
+def apl_admin_done(request):
+    all = Aplication.objects.filter(status='received').all()
+    return render(request, 'main/done_apl.html', context={'all': all})
 
 
 def apl_filter(request, status):
