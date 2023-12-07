@@ -63,11 +63,6 @@ class Aplication(models.Model):
     def __str__(self):
         return str(self.name) + ' | ' + str(self.Category) + ' | ' + str(self.status_verbose())
 
-    def get_absolute_url(self):
-        return reverse('post', kwargs={'new': self.str})
-        # f'main/profile.html/{self.id}'
-
- # render(request, 'main/profile.html')
 
 
     class Meta:
